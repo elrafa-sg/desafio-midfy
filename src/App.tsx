@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Dashboard from './pages/Dashboard'
-import Consumers from './pages/Consumers';
+import Customers from './pages/Customers'
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { Appbar } from './components/Appbar';
@@ -28,12 +28,11 @@ function App() {
           <Drawer open={open} toggleFunction={toggleDrawer} />
 
           <Routes>
-            <Route path='/' element={<  Dashboard />} />
-            <Route path='/consumers' element={<Consumers />} />
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/customers' element={<Customers />} />
           </Routes>
         </Box>
       </BrowserRouter>
-
     </ThemeProvider>
   );
 }
