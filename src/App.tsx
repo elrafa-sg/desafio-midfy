@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Dashboard from './pages/Dashboard'
-import Customers from './pages/Customers'
+import Customers from './pages/customers';
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { Appbar } from './components/Appbar';
