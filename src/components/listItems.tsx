@@ -9,14 +9,18 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { useNavigate } from 'react-router-dom';
 
-export const mainListItems = (
+export const MainListItems = () => {
+  const navigate = useNavigate();
+
+  return (
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Dashboard" onClick={() => navigate('/')} />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -28,7 +32,7 @@ export const mainListItems = (
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Customers" onClick={() => navigate('/customers')} />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -43,9 +47,10 @@ export const mainListItems = (
       <ListItemText primary="Integrations" />
     </ListItemButton>
   </React.Fragment>
-);
+  )
+};
 
-export const secondaryListItems = (
+export const SecondaryListItems = () => (
   <React.Fragment>
     <ListSubheader component="div" inset>
       Saved reports
