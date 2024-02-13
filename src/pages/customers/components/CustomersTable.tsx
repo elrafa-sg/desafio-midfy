@@ -13,12 +13,7 @@ import { MdDelete, MdEdit } from 'react-icons/md'
 import { format } from 'date-fns'
 import { Typography } from '@mui/material'
 
-interface Customer {
-    id: string,
-    createdAt: Date,
-    name: string,
-    avatar: string,
-}
+import Customer from '../../../models/Customer'
 
 interface CustomersTableProps {
     customersList: Customer[],
