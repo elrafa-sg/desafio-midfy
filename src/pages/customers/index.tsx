@@ -4,16 +4,16 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
-
 import { CustomersTable } from './components/CustomersTable'
 
 import { CustomersService } from '../../services/consumersService'
 import { ModalEditCustomer } from './components/ModalEditCustomer';
 import { ModalDeleteCustomer } from './components/ModalDeleteCustomer';
+import Customer from '../../models/Customer';
 
 const Customers = () => {
-    const [customersList, setCustomersList] = useState([])
-    const [selectedCustomer, setSelectedCustomer] = useState(0)
+    const [customersList, setCustomersList] = useState<Customer[]>([])
+    const [selectedCustomer, setSelectedCustomer] = useState<Customer>({id: '', avatar: '', createdAt: new Date(), name: ''})
 
     const [showModalEditCustomer, setShowModalEditCustomer] = useState(false)
     const [showModalDeleteCustomer, setShowModalDeleteCustomer] = useState(false)
@@ -27,20 +27,29 @@ const Customers = () => {
 
     useEffect(() => {
         loadCustomers()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    function editCustomer(customerId: number) {
-        setSelectedCustomer(customerId)
+    function handleEditCustomer(customerId: string) {
+        setSelectedCustomer(customersList.filter(x => x.id === customerId)[0])
         setShowModalEditCustomer(true)
     }
 
-    function handleDeleteCustomer(customerId: number) {
-        setSelectedCustomer(customerId)
+    async function updateCustomer(newCustomerData: Customer) {
+        const updateCustomer = await CustomersService.updateCustomer(newCustomerData)
+        setShowModalEditCustomer(false)
+        if (updateCustomer.status === 200) {
+            loadCustomers()
+        }
+    }
+
+    function handleDeleteCustomer(customerId: string) {
+        setSelectedCustomer(customersList.filter(x => x.id === customerId)[0])
         setShowModalDeleteCustomer(true)
     }
 
     async function deleteCustomer() {
-        const deleteCustomerResponse = await CustomersService.deleteCustomer(selectedCustomer)
+        const deleteCustomerResponse = await CustomersService.deleteCustomer(selectedCustomer.id)
         setShowModalDeleteCustomer(false)
         if (deleteCustomerResponse.status === 200) {
             loadCustomers()            
@@ -64,7 +73,8 @@ const Customers = () => {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <ModalEditCustomer open={showModalEditCustomer} 
                     cancelFunction={() => setShowModalEditCustomer(false)}
-                    confirmFunction={() => alert('salvou')}
+                    confirmFunction={updateCustomer}
+                    customer={selectedCustomer}
                 />
 
                 <ModalDeleteCustomer open={showModalDeleteCustomer}
@@ -74,7 +84,7 @@ const Customers = () => {
 
                 <CustomersTable 
                     customersList={customersList} 
-                    editFunction={editCustomer}
+                    editFunction={handleEditCustomer}
                     deleteFunction={handleDeleteCustomer}
                 />
             </Container>

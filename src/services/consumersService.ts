@@ -8,9 +8,9 @@ class CustomersService {
     return getCustomersResponse;
   }
 
-  static async updateCustomers(customerData: any) {
+  static async updateCustomer(customerData: any) {
     const updateCustomersResponse = await apiClient.put(
-      `${BASE_PATH}/${customerData.customerId}`,
+      `${BASE_PATH}/${customerData.id}`,
       customerData
     );
     return updateCustomersResponse;
@@ -24,7 +24,7 @@ class CustomersService {
     return createCustomersResponse;
   }
 
-  static async deleteCustomer(customerId: number) {
+  static async deleteCustomer(customerId: string) {
     const deleteCustomersResponse = await apiClient.delete(
       `${BASE_PATH}/${customerId}`
     );
