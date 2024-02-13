@@ -5,8 +5,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, IconButton, Typography, useTheme } from "@mui/material";
 import {Theme} from "@mui/material/styles"
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const drawerWidth: number = 240;
 

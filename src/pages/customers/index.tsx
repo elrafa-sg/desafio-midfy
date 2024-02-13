@@ -18,7 +18,7 @@ const Customers = () => {
     const [showModalEditCustomer, setShowModalEditCustomer] = useState(false)
     const [showModalDeleteCustomer, setShowModalDeleteCustomer] = useState(false)
 
-    const loadConsumers = useCallback(async () => {
+    const loadCustomers = useCallback(async () => {
         const customersResponse = await CustomersService.getCustomers();
         if (customersResponse.status === 200) {
             setCustomersList(customersResponse.data)
@@ -26,7 +26,7 @@ const Customers = () => {
     }, [])
 
     useEffect(() => {
-        loadConsumers()
+        loadCustomers()
     }, [])
 
     function editCustomer(customerId: number) {
@@ -34,9 +34,17 @@ const Customers = () => {
         setShowModalEditCustomer(true)
     }
 
-    function deleteCustomer(customerId: number) {
+    function handleDeleteCustomer(customerId: number) {
         setSelectedCustomer(customerId)
         setShowModalDeleteCustomer(true)
+    }
+
+    async function deleteCustomer() {
+        const deleteCustomerResponse = await CustomersService.deleteCustomer(selectedCustomer)
+        setShowModalDeleteCustomer(false)
+        if (deleteCustomerResponse.status === 200) {
+            loadCustomers()            
+        }
     }
 
     return (
@@ -61,13 +69,13 @@ const Customers = () => {
 
                 <ModalDeleteCustomer open={showModalDeleteCustomer}
                     cancelFunction={() => setShowModalDeleteCustomer(false)}
-                    confirmFunction={() => alert('deletou')}
+                    confirmFunction={() => deleteCustomer()}
                 />
 
                 <CustomersTable 
                     customersList={customersList} 
                     editFunction={editCustomer}
-                    deleteFunction={deleteCustomer}
+                    deleteFunction={handleDeleteCustomer}
                 />
             </Container>
         </Box>
