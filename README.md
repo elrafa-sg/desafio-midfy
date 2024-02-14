@@ -30,4 +30,10 @@ Frontend do desafio da midfy
 
 #### \* Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
 
-#### \*\* Antes de executar o projeto, versão teste ou produção, certifique-se de preencher as variáveis de ambiente no arquivo .env.exemplo e renomeá-lo para .env
+#### \*\* Antes de executar o projeto certifique-se de preencher as variáveis de ambiente no arquivo .env.sample e renomeá-lo para .env
+
+## Live Demo: 
+
+Aqui -> https://armyf.vercel.app/
+
+
